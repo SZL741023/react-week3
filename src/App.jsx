@@ -6,7 +6,9 @@ import { useRef } from "react";
 
 const API_BASE = import.meta.env.VITE_API_BASEURL;
 
+// personal api apth
 const PROJECT_API_PATH = import.meta.env.VITE_API_PATH;
+// project api path
 // const PROJECT_API_PATH = import.meta.env.VITE_PROJECT_API_PATH;
 
 const defaultModalState = {
@@ -36,7 +38,11 @@ function App() {
     e.preventDefault();
     try {
       const response = await axios.post(`${API_BASE}/admin/signin`, formData);
+      // personal token
       const { token, expired } = response.data;
+      // project token
+      // const token = import.meta.env.VITE_PROJECT_TOKEN;
+      // const expired = 1738724723311;
       document.cookie = `homework=${token};expires= ${new Date(expired)}`;
       setIsAuth(true);
       getProducdtsData();
