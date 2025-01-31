@@ -81,6 +81,7 @@ function App() {
     );
     console.log(token);
     if (token !== "") {
+      axios.defaults.headers.common["Authorization"] = token;
       setIsAuth(true);
       getProducdtsData();
     }
