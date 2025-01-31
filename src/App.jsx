@@ -44,6 +44,7 @@ function App() {
       // const token = import.meta.env.VITE_PROJECT_TOKEN;
       // const expired = 1738724723311;
       document.cookie = `homework=${token};expires= ${new Date(expired)}`;
+      axios.defaults.headers.common["Authorization"] = token;
       setIsAuth(true);
       getProducdtsData();
     } catch (error) {
@@ -75,11 +76,11 @@ function App() {
   // NOTE: check web storage has token
   const checkHasToken = () => {
     const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)homework\s*=\s*([^;]*).*$)|^.*$/,
+      /(?:(?:^|.*;\s*)homework\s*\=\s*([^;]*).*$)|^.*$/,
       "$1",
     );
-    if (token != undefined) {
-      axios.defaults.headers.common["Authorization"] = token;
+    console.log(token);
+    if (token !== "") {
       setIsAuth(true);
       getProducdtsData();
     }
