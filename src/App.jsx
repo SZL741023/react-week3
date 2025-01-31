@@ -44,9 +44,7 @@ function App() {
       // const token = import.meta.env.VITE_PROJECT_TOKEN;
       // const expired = 1738724723311;
       document.cookie = `homework=${token};expires= ${new Date(expired)}`;
-      axios.defaults.headers.common["Authorization"] = token;
-      setIsAuth(true);
-      getProducdtsData();
+      checkHasToken();
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -62,7 +60,7 @@ function App() {
   };
 
   // NOTE: function for getting products
-  const getProducdtsData = async () => {
+  const getProductsData = async () => {
     try {
       const response = await axios.get(
         // `${API_BASE}/api/${API_PATH}/products/all`,
@@ -79,11 +77,10 @@ function App() {
       /(?:(?:^|.*;\s*)homework\s*\=\s*([^;]*).*$)|^.*$/,
       "$1",
     );
-    console.log(token);
     if (token !== "") {
       axios.defaults.headers.common["Authorization"] = token;
       setIsAuth(true);
-      getProducdtsData();
+      getProductsData();
     }
   };
 
@@ -237,7 +234,7 @@ function App() {
     const apiCall = modalMode === "create" ? createProduct : updateProduct;
     try {
       await apiCall();
-      getProducdtsData();
+      getProductsData();
       handleCloseProductModal();
     } catch (error) {
       console.log(error.response.data.message);
@@ -248,7 +245,7 @@ function App() {
   const handleDeleteProduct = async () => {
     try {
       await deleteProduct();
-      getProducdtsData();
+      getProductsData();
       handleCloseDelProductModal();
     } catch (error) {
       console.log(error.response.data.message);
