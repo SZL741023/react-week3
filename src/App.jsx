@@ -64,7 +64,7 @@ function App() {
     try {
       const response = await axios.get(
         // `${API_BASE}/api/${API_PATH}/products/all`,
-        `${API_BASE}/api/${PROJECT_API_PATH}/products/all`,
+        `${API_BASE}/api/${PROJECT_API_PATH}/admin/products`,
       );
       setProducts(response.data.products);
     } catch (error) {
@@ -215,14 +215,6 @@ function App() {
     try {
       await axios.delete(
         `${API_BASE}/api/${PROJECT_API_PATH}/admin/product/${tempProduct.id}`,
-        {
-          data: {
-            ...tempProduct,
-            origin_price: Number(tempProduct.origin_price),
-            price: Number(tempProduct.price),
-            is_enabled: tempProduct.is_enabled ? 1 : 0,
-          },
-        },
       );
     } catch (error) {
       console.log(error.response.data.message);
